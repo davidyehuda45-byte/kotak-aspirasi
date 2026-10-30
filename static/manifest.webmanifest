@@ -1,0 +1,21 @@
+{
+  "name": "Kotak Aspirasi Siswa — SMK Bagimu Negeriku",
+  "short_name": "Aspirasi SMK",
+  "description": "Platform Aspirasi Digital Resmi SMK Bagimu Negeriku oleh Sekbid 3 IT OSIS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1D4ED8",
+  "icons": [
+    {
+      "src": "/logo-smk.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-smk.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
