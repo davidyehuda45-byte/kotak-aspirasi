@@ -5,6 +5,7 @@
 - Inisiator & Pengembang: Seksi Bidang 3 (Teknologi & Informasi) OSIS
 - Lisensi: MIT License (Open-Source untuk SMK Bagimu Negeriku)
 - Logo Aset: `static/logo-smk.png` dan `static/logo-osis.jpg`
+- Repositori GitHub: `https://github.com/davidyehuda45-byte/kotak-aspirasi`
 
 ## Tech Stack & Desain
 - Framework: SvelteKit 3 + Svelte 5 (Runes) + TypeScript
