@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
-const ADMIN_USER = process.env.ADMIN_USERNAME || 'admin_osis';
-const ADMIN_PASS = process.env.ADMIN_PASSWORD || 'osis_amanah_2026';
+const ADMIN_USER = process.env.ADMIN_USERNAME || 'davidyehuda';
+const ADMIN_PASS = process.env.ADMIN_PASSWORD || 'kotakaspirasi';
 
 export const load: PageServerLoad = async ({ cookies }) => {
   const session = cookies.get('admin_session');

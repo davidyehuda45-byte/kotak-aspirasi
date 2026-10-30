@@ -18,11 +18,11 @@
 ## Arsitektur Rute Sistem
 - `/`: 1 Halaman Terpadu Siswa dengan 4 Tab Interaktif:
   - Tab 1 `kirim`: Formulir aspirasi anonim, pusat pelaporan Bullying/Perundungan instan, tombol pintasan topik perundungan, pratinjau thumbnail bukti gambar sebelum dikirim, proteksi honeypot anti-bot & rate limiter IP, live character progress bar, auto-lock privat kategori sensitif, modal kode rahasia (`KAS-XXXX-XXXX`).
-  - Tab 2 `lacak`: Auto-direct saat URL memuat `?kode=`, pencarian via kode rahasia (hash SHA-256), chip demo instan, timeline status, dan percakapan dua arah bergaya chat institusional.
+  - Tab 2 `lacak`: Auto-direct saat URL memuat `?kode=`, pencarian via kode rahasia unik (hash SHA-256), timeline status, dan percakapan dua arah bergaya chat institusional.
   - Tab 3 `publik`: Feed aspirasi umum yang disetujui, filter kategori, pencarian kata kunci.
   - Tab 4 `panduan`: Kebijakan privasi, hotline darurat sekolah (Guru BK 0812-3456-7890, Pembina OSIS 0821-9876-5432, SAPA 129, KPAI), lisensi Sekbid 3 IT.
 - `/admin-aspirasi`: Jalur Khusus Terproteksi Pengurus OSIS:
-  - `/admin-aspirasi/login`: Login admin sesi server-side (HttpOnly cookie).
+  - `/admin-aspirasi/login`: Login admin sesi server-side (HttpOnly cookie), kredensial akun: `davidyehuda` / `kotakaspirasi`.
   - `/admin-aspirasi`: Dashboard metrik ringkasan aktual.
   - `/admin-aspirasi/reports`: Tabel dan filter aspirasi lengkap, filter rentang waktu (7d, 30d, all), dan tombol unduh Ekspor CSV instan.
   - `/admin-aspirasi/reports/[id]`: Detail laporan, mutasi status penanganan, moderasi publikasi, balasan resmi OSIS, dan viewer modal bukti lampiran gambar.

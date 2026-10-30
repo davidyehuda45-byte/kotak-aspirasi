@@ -44,8 +44,7 @@ Seluruh interaksi siswa disatukan ke dalam 1 halaman utama yang terpadu dan resp
    - Modal kode rahasia unik (`KAS-XXXX-XXXX`) dengan tombol salin.
 2. **Lacak via Kode Rahasia**:
    - Auto-direct langsung ke tab pelacakan saat membuka URL berkode (`/?kode=...`).
-   - Pencarian laporan menggunakan kode rahasia terenkripsi hash SHA-256.
-   - Tersedia tombol cepat pengujian demo (`KAS-DEMO-0001`, `KAS-DEMO-0002`, `KAS-DEMO-0004`).
+   - Pencarian laporan menggunakan kode rahasia unik terenkripsi hash SHA-256.
    - Timeline status penanganan (*Baru*, *Ditinjau*, *Diproses*, *Menunggu Siswa*, *Selesai*).
    - Percakapan dua arah antara siswa dan pengurus OSIS Sekbid 3 IT secara anonim.
 3. **Aspirasi Publik Terverifikasi**:
@@ -71,16 +70,15 @@ Demi keamanan, tautan admin tidak ditampilkan di menu publik siswa. Pengurus OSI
 
 ---
 
-## 4. Kredensial Pengujian Bawaan
+## 4. Kredensial Akses Administrator Produksi
 
 - **Jalur Masuk Admin OSIS**:
   - URL: `/admin-aspirasi/login`
-  - Username: `admin_osis`
-  - Password: `osis_amanah_2026`
-- **Kode Rahasia Demo Siswa (Tab Lacak via Kode)**:
-  - `KAS-DEMO-0001`: Aspirasi Fasilitas Lab Praktikum (Ada balasan resmi OSIS)
-  - `KAS-DEMO-0002`: Usulan Waktu Istirahat (Status Ditinjau)
-  - `KAS-DEMO-0004`: Laporan Bullying / Intimidasi (Terkunci Privat Terproteksi)
+  - Username: `davidyehuda`
+  - Password: `kotakaspirasi`
+- **Keamanan Data**:
+  - Seluruh data dummy laporan dan token telah dibersihkan secara penuh untuk lingkungan produksi (*zero dummy records*).
+  - Laporan yang tampil nantinya adalah murni aspirasi autentik dari siswa SMK Bagimu Negeriku.
 
 ---
 

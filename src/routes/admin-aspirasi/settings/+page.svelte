@@ -57,7 +57,7 @@
         <input
           id="admin-account"
           type="text"
-          value="admin_osis (Sekbid 3 IT)"
+          value="davidyehuda (Sekbid 3 IT)"
           readonly
           class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-border-subtle text-tx-primary font-mono font-bold"
         />

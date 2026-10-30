@@ -638,7 +638,7 @@
             <input
               name="secretCode"
               type="text"
-              placeholder="Masukkan Kode Rahasia (misal: KAS-DEMO-0001)"
+              placeholder="Masukkan Kode Rahasia Laporanmu (misal: KAS-9382-7104)"
               bind:value={secretCodeInput}
               required
               class="w-full pl-10 pr-4 py-3.5 rounded-xl border border-slate-200 bg-slate-50 font-mono uppercase tracking-wider text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-blue shadow-2xs"
@@ -659,32 +659,6 @@
             {/if}
           </button>
         </form>
-
-        <!-- Fast Demo Helper Chips -->
-        <div class="pt-3 flex flex-wrap items-center gap-2 text-[11px] text-tx-secondary border-t border-slate-100">
-          <span class="font-bold text-tx-primary">Contoh Kode Demo:</span>
-          <button
-            type="button"
-            onclick={() => quickFillCode('KAS-DEMO-0001')}
-            class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-brand-blue font-mono font-bold text-tx-primary transition-colors border border-slate-200/60"
-          >
-            KAS-DEMO-0001 (Fasilitas Lab)
-          </button>
-          <button
-            type="button"
-            onclick={() => quickFillCode('KAS-DEMO-0002')}
-            class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-brand-blue font-mono font-bold text-tx-primary transition-colors border border-slate-200/60"
-          >
-            KAS-DEMO-0002 (Saran Istirahat)
-          </button>
-          <button
-            type="button"
-            onclick={() => quickFillCode('KAS-DEMO-0004')}
-            class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 font-mono font-bold text-danger transition-colors border border-red-200/60"
-          >
-            KAS-DEMO-0004 (Bullying Privat)
-          </button>
-        </div>
       </div>
 
       {#if form?.lookupError}

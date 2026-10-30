@@ -15,140 +15,17 @@ import { generateSecretCode, generatePublicReference, hashSecretToken, verifySec
 const supabaseUrl = process.env.PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY;
 
-// Data in-memory awal yang realistis untuk pengujian lokal & fallback
-let memoryReports: Report[] = [
-  {
-    id: 'rep-001',
-    public_reference: 'ASP-7492',
-    title: 'Penambahan stopkontak dan kipas di laboratorium komputer 2',
-    category: 'fasilitas',
-    content: 'Saat praktikum jaringan, banyak laptop siswa kehabisan baterai karena hanya ada 4 stopkontak aktif di bagian depan. Suhu ruangan juga sering terlalu gerah saat jam siang. Mohon pertimbangan penambahan colokan dan servis kipas angin.',
-    visibility: 'public',
-    publication_status: 'approved',
-    handling_status: 'in_progress',
-    created_at: new Date(Date.now() - 4 * 86400000).toISOString(),
-    updated_at: new Date(Date.now() - 1 * 86400000).toISOString(),
-    messages: [
-      {
-        id: 'msg-001',
-        report_id: 'rep-001',
-        sender_type: 'admin',
-        sender_name: 'Pengurus OSIS',
-        content: 'Terima kasih atas aspirasinya. Kami sudah meneruskan usulan ini ke Bagian Sarana dan Prasarana sekolah. Rencana perbaikan stopkontak dijadwalkan akhir pekan ini.',
-        created_at: new Date(Date.now() - 2 * 86400000).toISOString()
-      }
-    ]
-  },
-  {
-    id: 'rep-002',
-    public_reference: 'ASP-8813',
-    title: 'Usulan durasi istirahat kedua diperpanjang 10 menit untuk ibadah Dzuhur',
-    category: 'saran',
-    content: 'Waktu istirahat kedua saat ini 25 menit. Dengan antrean wudhu musala yang panjang, banyak siswa terburu-buru makan siang. Jika bisa diperpanjang 10 menit akan sangat membantu.',
-    visibility: 'public',
-    publication_status: 'approved',
-    handling_status: 'reviewing',
-    created_at: new Date(Date.now() - 3 * 86400000).toISOString(),
-    updated_at: new Date(Date.now() - 3 * 86400000).toISOString(),
-    messages: [
-      {
-        id: 'msg-002',
-        report_id: 'rep-002',
-        sender_type: 'admin',
-        sender_name: 'Pengurus OSIS',
-        content: 'Usulan sedang dikompilasi oleh tim divisi Advokasi OSIS untuk dibahas dalam rapat koordinasi bulanan bersama Wakasek Kesiswaan.',
-        created_at: new Date(Date.now() - 2 * 86400000).toISOString()
-      }
-    ]
-  },
-  {
-    id: 'rep-003',
-    public_reference: 'ASP-2940',
-    title: 'Kantin sekolah perlu sistem nomor antrean pada stan makanan berat',
-    category: 'saran',
-    content: 'Di stan nasi goreng dan bakso sering terjadi saling serobot saat istirahat pertama karena tidak ada batas antrean yang teratur. Mohon bantuan OSIS berkoordinasi dengan pengelola kantin.',
-    visibility: 'public',
-    publication_status: 'pending',
-    handling_status: 'new',
-    created_at: new Date(Date.now() - 1 * 86400000).toISOString(),
-    updated_at: new Date(Date.now() - 1 * 86400000).toISOString(),
-    messages: []
-  },
-  {
-    id: 'rep-004',
-    public_reference: 'ASP-9011',
-    title: 'Laporan intimidasi verbal dan pemalakan di koridor belakang lapangan basket',
-    category: 'bullying',
-    content: 'Ada sekelompok oknum kelas 12 yang sering menghentikan adik kelas yang lewat koridor belakang saat pulang sekolah dan meminta uang paksa secara verbal. Tolong dijaga oleh satpam atau guru piket saat jam bubar sekolah.',
-    visibility: 'private',
-    publication_status: 'rejected',
-    handling_status: 'in_progress',
-    created_at: new Date(Date.now() - 2 * 86400000).toISOString(),
-    updated_at: new Date(Date.now() - 12 * 3600000).toISOString(),
-    messages: [
-      {
-        id: 'msg-003',
-        report_id: 'rep-004',
-        sender_type: 'admin',
-        sender_name: 'Tim Konseling & OSIS',
-        content: 'Laporan ini telah kami koordinasikan secara tertutup dengan Guru BK dan petugas keamanan sekolah. Mulai hari ini koridor tersebut dijaga oleh guru piket. Identitas pelapor tetap terlindungi dan aman.',
-        created_at: new Date(Date.now() - 12 * 3600000).toISOString()
-      }
-    ]
-  }
-];
-
-// Token rahasia mock untuk rep-001 s.d rep-004
-// Contoh kode token demo:
-// rep-001 -> KAS-DEMO-0001
-// rep-004 -> KAS-DEMO-0004
-let memoryAccessTokens: ReportAccess[] = [
-  {
-    report_id: 'rep-001',
-    token_hash: hashSecretToken('KAS-DEMO-0001'),
-    created_at: new Date().toISOString()
-  },
-  {
-    report_id: 'rep-002',
-    token_hash: hashSecretToken('KAS-DEMO-0002'),
-    created_at: new Date().toISOString()
-  },
-  {
-    report_id: 'rep-003',
-    token_hash: hashSecretToken('KAS-DEMO-0003'),
-    created_at: new Date().toISOString()
-  },
-  {
-    report_id: 'rep-004',
-    token_hash: hashSecretToken('KAS-DEMO-0004'),
-    created_at: new Date().toISOString()
-  }
-];
-
+// Data in-memory awal (bersih untuk lingkungan produksi)
+let memoryReports: Report[] = [];
+let memoryAccessTokens: ReportAccess[] = [];
 let memoryAuditLogs: AuditLog[] = [
   {
     id: 'log-001',
-    actor_name: 'Admin OSIS (Sistem)',
-    action: 'Inisialisasi sistem kotak aspirasi',
+    actor_name: 'davidyehuda (Sistem)',
+    action: 'Inisialisasi sistem kotak aspirasi produksi',
     target_id: 'SYSTEM',
-    details: 'Sistem diaktifkan dengan perlindungan privasi ketat',
-    created_at: new Date(Date.now() - 5 * 86400000).toISOString()
-  },
-  {
-    id: 'log-002',
-    actor_name: 'Admin OSIS',
-    action: 'Update Status Laporan',
-    target_id: 'rep-001',
-    details: 'Status diubah ke in_progress',
-    created_at: new Date(Date.now() - 2 * 86400000).toISOString()
-  },
-  {
-    id: 'log-003',
-    actor_name: 'Admin OSIS',
-    action: 'Kirim Balasan Tanggapan',
-    target_id: 'rep-004',
-    details: 'Balasan tindak lanjut protektif dikirim ke saluran privat',
-    created_at: new Date(Date.now() - 12 * 3600000).toISOString()
+    details: 'Sistem diaktifkan bersih dengan perlindungan privasi penuh',
+    created_at: new Date().toISOString()
   }
 ];
 
