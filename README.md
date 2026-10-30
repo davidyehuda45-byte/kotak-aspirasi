@@ -95,3 +95,47 @@ Demi keamanan, tautan admin tidak ditampilkan di menu publik siswa. Pengurus OSI
    npm run dev
    ```
 3. Buka browser: `http://localhost:5173`
+
+---
+
+## 6. Panduan Deployment Siap Pakai (Vercel & Supabase Rp0)
+
+Proyek ini telah dikonfigurasi menggunakan `@sveltejs/adapter-vercel` dan siap dideploy langsung tanpa penyesuaian kode tambahan.
+
+### Langkah A — Menghubungkan Repository ke GitHub
+
+1. Buat repository baru di akun GitHub (misal: `kotak-aspirasi-smk`).
+2. Hubungkan repository lokal dan push kode:
+   ```bash
+   git branch -M main
+   git remote add origin https://github.com/USERNAME/kotak-aspirasi-smk.git
+   git push -u origin main
+   ```
+
+### Langkah B — Setup Database Supabase Gratis (Opsional namun Disarankan)
+
+1. Buat akun dan proyek baru di [Supabase](https://supabase.com) (Pilih Region Singapura untuk latensi tercepat dari Indonesia).
+2. Masuk ke menu **SQL Editor** di dashboard Supabase.
+3. Jalankan isi file [`supabase/schema.sql`](supabase/schema.sql) untuk membuat tabel, enum, dan indeks.
+4. Jalankan isi file [`supabase/rls.sql`](supabase/rls.sql) untuk mengaktifkan aturan keamanan Row Level Security.
+5. Buat Storage Bucket bernama `report-attachments` dengan akses privat untuk bukti lampiran.
+6. Salin kredensial dari menu **Project Settings -> API**:
+   - `Project URL`
+   - `anon public key`
+   - `service_role secret key`
+
+### Langkah C — Deployment 1-Klik di Vercel
+
+1. Buka [Vercel](https://vercel.com) dan pilih **Add New Project**.
+2. Hubungkan akun GitHub dan pilih repository `kotak-aspirasi-smk`.
+3. Vercel akan otomatis mendeteksi framework **SvelteKit**.
+4. Di bagian **Environment Variables**, tambahkan variabel berikut:
+   - `ADMIN_USERNAME`: Username admin OSIS pilihan (misal: `admin_osis_smk`)
+   - `ADMIN_PASSWORD`: Password kuat admin OSIS
+   - `TOKEN_PEPPER`: String acak unik untuk salt hash kode (misal: `smk-bagimunegeriku-secret-salt-2026`)
+   - `PUBLIC_SUPABASE_URL`: URL proyek Supabase Anda
+   - `PUBLIC_SUPABASE_ANON_KEY`: Kunci anon Supabase
+   - `SUPABASE_SERVICE_ROLE_KEY`: Kunci service role Supabase
+5. Klik **Deploy**. Dalam waktu sekitar 1-2 menit, website resmi Kotak Aspirasi akan aktif dengan domain `.vercel.app` (atau domain sekolah kustom).
+
+*Catatan: Jika Supabase belum dikonfigurasi saat pertama kali deploy, website tetap berjalan normal menggunakan database fallback in-memory.*
